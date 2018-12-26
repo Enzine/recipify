@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Recipify</title>
+  </head>
+
+  <body>
+      <ul>
+          <li><a href="{{ url_for('recipes_index') }}">List recipes</a></li>
+          <li><a href="{{ url_for('recipes_form') }}">Add a recipe</a></li>
+      </ul>
+    {% block body %}
+    <p>
+  Tähän tuodaan sisältö muualta.
+    </p>
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <table>
+        <tr>
+            <th>Recipe</th>
+            <th>Done</th>
+        </tr>
+        {% for recipe in recipes %}
+        <tr>
+            <td>{{ recipe.name }}</td>
+            <td>{{ recipe.done }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('recipes_set_done', recipe_id=recipe.id) }}">
+                    <input type="submit" value="Change status!"/>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
