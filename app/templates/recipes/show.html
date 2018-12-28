@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h2>{{ recipe.name }}</h2>
+    <p>This recipe has {{ recipe.likes }} likes.</p>
+    <p>This recipe has been completed {{ recipe.done }} times.</p>
+    <br />
+    <b>Instructions:</b>
+    <p>{{ recipe.instructions }}</p>
+{% endblock %}
