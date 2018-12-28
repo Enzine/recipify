@@ -5,14 +5,13 @@
         <div>
             <div>
                 <label>Recipe</label>
-                <input type="text" name="name" value={{recipe.name}}/>
+                <input type="text" name="name" value="{{recipe.name}}" />
             </div>
             <div>
                 <label>Preparation time (mins)</label>
-                <p>{{recipe.preparation_time}}</p>
-                <input type="number" name="preparation_time" value={{recipe.preparation_time}}/>
+                <input type="number" name="preparation_time" value="{{recipe.preparation_time}}" />
             </div>
-            <div><label>Instructions: </label><input type="text" name="instructions" value={{recipe.instructions}}/></div>
+            <div><label>Instructions: </label><input type="text" name="instructions" value="{{recipe.instructions}}" /></div>
         </div>
         <div><input type="submit" class="button button-edit" value="Edit"/></div>
     </form>
