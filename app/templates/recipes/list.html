@@ -4,15 +4,24 @@
     <table>
         <tr>
             <th>Recipe</th>
-            <th>Done</th>
+            <th>Likes</th>
+            <th>Instructions</th>
+            <th>Actions</th>
         </tr>
         {% for recipe in recipes %}
         <tr>
-            <td>{{ recipe.name }}</td>
-            <td>{{ recipe.done }}</td>
+            <td><a href="{{ url_for('recipes_show', recipe_id=recipe.id) }}">{{ recipe.name }}</a></td>
+            <td>{{ recipe.likes }}</td>
+            <td>{{ recipe.instructions }}</td>
             <td>
-                <form method="POST" action="{{ url_for('recipes_set_done', recipe_id=recipe.id) }}">
-                    <input type="submit" value="Change status!"/>
+                <form method="POST" action="{{ url_for('recipes_remove', recipe_id=recipe.id) }}">
+                    <input type="submit" value="Remove" class="button button-remove"/>
+                </form>
+                <form method="GET" action="{{ url_for('recipes_edit_form', recipe_id=recipe.id) }}">
+                    <input type="submit" value="Edit" class="button button-edit"/>
+                </form>
+                <form method="POST" action="{{ url_for('recipes_add_like', recipe_id=recipe.id) }}">
+                    <input type="submit" value="Like!" class="button button-like"/>
                 </form>
             </td>
         </tr>

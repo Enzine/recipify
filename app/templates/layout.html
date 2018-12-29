@@ -3,13 +3,74 @@
   <head>
     <meta charset="utf-8">
     <title>Recipify</title>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        .button {
+          color: white;
+          padding: 10px;
+          text-align: center;
+          display: inline-block;
+          font-size: 16px;
+          cursor: pointer;
+        }
+        .button-like {
+          background-color: rgb(37, 106, 218);
+        }
+        .button-edit {
+          background-color: rgb(219, 126, 49);
+        }
+        .button-add {
+          background-color: rgb(49, 161, 92);
+          margin: 5px;
+          margin-left: 0px;
+        }
+        .button-remove {
+          background-color: #A93540;
+        }
+        form {
+            display: inline; 
+        }
+        .a-navi:link, .a-navi:visited {
+          background-color: rgb(39, 41, 41);
+          color: white;
+          padding: 14px 25px;
+          margin-top: 3px;
+          margin-bottom: 15px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .grid-container {
+          display: grid;
+          grid-template-columns: auto auto auto auto auto auto;
+        }
+        .grid-item {
+          background-color: rgba(255, 255, 255, 0.8);
+          font-size: 20px;
+          text-align: center;
+        }
+        .a-navi:hover, .a-navi:active {
+          background-color: rgb(10, 92, 88);
+        }
+        </style>
   </head>
 
   <body>
-      <ul>
-          <li><a href="{{ url_for('recipes_index') }}">List recipes</a></li>
-          <li><a href="{{ url_for('recipes_form') }}">Add a recipe</a></li>
-      </ul>
+    <a class="a-navi" href="{{ url_for('recipes_index') }}">List recipes</a> <a class="a-navi" href="{{ url_for('recipes_form') }}">Add a recipe</a>
     {% block body %}
     <p>
   Tähän tuodaan sisältö muualta.
