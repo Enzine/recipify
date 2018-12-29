@@ -4,7 +4,11 @@
 
 * As a user I can see and scroll all the recipes listed.
 
+* As a user I can search recipes by name or tag.
+
 * As a user I can see information of a chosen recipe on a recipe's page.
+
+* As a user I can access a random recipe.
 
 ## When logged
 
