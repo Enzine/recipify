@@ -5,6 +5,7 @@
         <tr>
             <th>Recipe</th>
             <th>Likes</th>
+            <th>Preparation time (mins)</th>
             <th>Instructions</th>
             <th>Actions</th>
         </tr>
@@ -12,6 +13,7 @@
         <tr>
             <td><a href="{{ url_for('recipes_show', recipe_id=recipe.id) }}">{{ recipe.name }}</a></td>
             <td>{{ recipe.likes }}</td>
+            <td>{{ recipe.preparation_time }}</td>
             <td>{{ recipe.instructions }}</td>
             <td>
                 <form method="POST" action="{{ url_for('recipes_remove', recipe_id=recipe.id) }}">

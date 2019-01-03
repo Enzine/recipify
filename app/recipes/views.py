@@ -1,6 +1,7 @@
 from app import app, db
 from flask import render_template, request, url_for, redirect
 from app.recipes.models import Recipe
+from app.recipes.forms import RecipeForm
 import sys
 
 # print('This is error output', file=sys.stderr)
@@ -21,13 +22,13 @@ def recipes_show(recipe_id):
 # Shows form to create a new recipe.
 @app.route("/recipes/new/")
 def recipes_form():
-    return render_template("recipes/new.html")
+    return render_template("recipes/new.html", form = RecipeForm())
 
 # GET /recipes/<recipe_id>/edit
 # Shows form to edit a chosen recipe.
 @app.route("/recipes/<recipe_id>/edit/")
 def recipes_edit_form(recipe_id):
-    return render_template("recipes/edit.html", recipe = Recipe.query.get(recipe_id))
+    return render_template("recipes/edit.html", recipe = Recipe.query.get(recipe_id), form = RecipeForm(obj=Recipe.query.get(recipe_id)))
 
 # PUT /recipes/<recipe_id>/like
 # Edits the given recipy by adding a like.
@@ -44,9 +45,14 @@ def recipes_add_like(recipe_id):
 # Creates a new recipe.
 @app.route("/recipes/", methods=["POST"])
 def recipes_create():
-    name = request.form.get("name")
-    preparation_time = request.form.get("preparation_time")
-    instructions = request.form.get("instructions")
+    form = RecipeForm(request.form)
+
+    if not form.validate():
+        return render_template("recipes/new.html", form = form)
+
+    name = form.name.data
+    preparation_time = form.preparation_time.data
+    instructions = form.instructions.data
 
     r = Recipe(name, preparation_time, instructions)
 
@@ -59,9 +65,14 @@ def recipes_create():
 # Edits the given recipe.
 @app.route("/recipes/<recipe_id>/edit/", methods=["POST"])
 def recipes_edit(recipe_id):
-    name = request.form.get("name")
-    preparation_time = request.form.get("preparation_time")
-    instructions = request.form.get("instructions")
+    form = RecipeForm(request.form)
+
+    if not form.validate():
+        return render_template("recipes/edit.html", recipe = Recipe.query.get(recipe_id), form = form)
+    
+    name = form.name.data
+    preparation_time = form.preparation_time.data
+    instructions = form.instructions.data
     
     r = Recipe.query.get(recipe_id)
     r.name = name
@@ -78,7 +89,7 @@ def recipes_edit(recipe_id):
 def recipes_remove(recipe_id):
     r = Recipe.query.get(recipe_id)
     
-    db.session.delete(r)
+    db.session().delete(r)
     db.session().commit()
 
     return redirect(url_for("recipes_index"))

@@ -2,18 +2,46 @@
 
 {% block body %}
     <form method="POST" action="{{ url_for('recipes_edit', recipe_id=recipe.id) }}">
-        <div>
-            <div>
-                <label>Recipe</label>
-                <input type="text" name="name" value="{{recipe.name}}" />
-            </div>
-            <div>
-                <label>Preparation time (mins)</label>
-                <input type="number" name="preparation_time" value="{{recipe.preparation_time}}" />
-            </div>
-            <div><label>Instructions: </label><input type="text" name="instructions" value="{{recipe.instructions}}" /></div>
-        </div>
-        <div><input type="submit" class="button button-edit" value="Edit"/></div>
+        <table>
+            <tr>
+                <td>{{ form.name.label }}</td>
+                <td>{{ form.name }}</td>
+                <td>
+                    <ul>
+                        {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form.preparation_time.label }}</td>
+                <td>{{ form.preparation_time }}</td>
+                <td>
+                    <ul>
+                        {% for error in form.preparation_time.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form.instructions.label }}</td>
+                <td>{{ form.instructions }}</td>
+                <td>
+                    <ul>
+                        {% for error in form.instructions.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <input type="submit" class="button button-edit" value="Edit" />
+                </td>
+            </tr>
+        </table>
     </form>
 {% endblock %}
 
