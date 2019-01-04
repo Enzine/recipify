@@ -9,11 +9,17 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///recipes.db"
 # Print sql queries
 app.config["SQLALCHEMY_ECHO"] = True
 
+# Check which database to use.
+if os.environ.get("HEROKU"):
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+else:
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///recipes.db"    
+    app.config["SQLALCHEMY_ECHO"] = True
+
 # Create db object
 db = SQLAlchemy(app)
 
 from app import views
-
 from app.recipes import models, views
 from app.auth import models, views
 

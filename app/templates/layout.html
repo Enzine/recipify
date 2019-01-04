@@ -71,13 +71,15 @@
 
   <body>
     {% if current_user.is_authenticated %}
-      <p>Logged in as {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Log out</a></p>
+      <p>Logged in as {{ current_user.username }}. <a href="{{ url_for('auth_logout') }}">Log out</a></p>
     {% else %}
+      <a class="a-navi" href="{{ url_for('auth_register') }}">Register</a>
       <a class="a-navi" href="{{ url_for('auth_login') }}">Log in</a>
     {% endif %}
     
-    <a class="a-navi" href="{{ url_for('recipes_index') }}">List recipes</a> <a class="a-navi" href="{{ url_for('recipes_form') }}">Add a recipe</a>
-    
+    <a class="a-navi" href="{{ url_for('recipes_index') }}">List recipes</a>
+    <a class="a-navi" href="{{ url_for('recipes_form') }}">Add a recipe</a>
+
     {% block body %}
     <p>
   Tähän tuodaan sisältö muualta.

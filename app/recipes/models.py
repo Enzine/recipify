@@ -12,13 +12,12 @@ class Recipe(db.Model):
     preparation_time = db.Column(db.Integer)
     instructions = db.Column(db.String, nullable=False)
 
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
+                           nullable=False)
+
     def __init__(self, name, preparation_time, instructions):
         self.name = name
         self.done = 0
         self.likes = 0
         self.preparation_time = preparation_time
         self.instructions = instructions
- 
-    @classmethod
-    def by_id(cls, id):
-        return db.session().query(Recipe).filter(Recipe.id==id)
