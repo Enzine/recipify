@@ -48,3 +48,7 @@ def auth_register():
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))    
+
+@app.route("/auth/<account_id>/show", methods=["GET"])
+def auth_show(account_id):
+    return render_template("auth/show.html", account = User.query.get(account_id))
