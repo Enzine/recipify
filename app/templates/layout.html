@@ -76,11 +76,11 @@
   </head>
 
   <body>
-      {% if current_user.is_authenticated %}
-        <p>Logged in as <a href="{{ url_for('auth_show', account_id=current_user.id) }}">{{ current_user.username }}.</a> <a href="{{ url_for('auth_logout') }}">Log out</a></p>
-      {% else %}
-      <a class="a-navi" href="{{ url_for('auth_register') }}">Register</a>
-      <a class="a-navi" href="{{ url_for('auth_login') }}">Log in</a>
+    {% if current_user.is_authenticated %}
+      <p>Logged in as <a href="{{ url_for('auth_show', account_id=current_user.id) }}">{{ current_user.username }}.</a> <a href="{{ url_for('auth_logout') }}">Log out</a></p>
+    {% else %}
+    <a class="a-navi" href="{{ url_for('auth_register') }}">Register</a>
+    <a class="a-navi" href="{{ url_for('auth_login') }}">Log in</a>
     {% endif %}
     <a class="a-navi" href="{{ url_for('index') }}">Home</a>
 
