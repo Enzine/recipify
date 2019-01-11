@@ -9,6 +9,7 @@ class User(Base):
     password = db.Column(db.String(144), nullable=False)
 
     recipes = db.relationship("Recipe", backref='account', lazy=True)
+    comments = db.relationship('Comment', backref='account', lazy=True)
 
     def __init__(self, username, password):
         self.username = username

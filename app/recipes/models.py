@@ -10,8 +10,9 @@ class Recipe(Base):
     preparation_time = db.Column(db.Integer)
     instructions = db.Column(db.String, nullable=False)
 
-    account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
-                           nullable=False)
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
+
+    comments = db.relationship('Comment', backref='recipe', lazy=True)
 
     def __init__(self, name, preparation_time, instructions):
         self.name = name
