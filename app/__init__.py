@@ -23,6 +23,7 @@ db = SQLAlchemy(app)
 from app import views
 from app.recipes import models, views
 from app.auth import models, views
+from app.comments import models, views
 
 # Login
 from app.auth.models import User
