@@ -15,21 +15,24 @@
             <td>{{ recipe.likes }}</td>
             <td>{{ recipe.preparation_time }}</td>
             <td>{{ recipe.instructions }}</td>
-            
+
             <td>
                 {% if current_user.is_authenticated %}
-                    <form method="POST" action="{{ url_for('recipes_remove', recipe_id=recipe.id) }}">
-                        <input type="submit" value="Remove" class="button button-remove"/>
-                    </form>
-                    <form method="GET" action="{{ url_for('recipes_edit_form', recipe_id=recipe.id) }}">
-                        <input type="submit" value="Edit" class="button button-edit"/>
-                    </form>
+
+                    {% if current_user.id == recipe.account.id %}
+                        <form method="POST" action="{{ url_for('recipes_remove', recipe_id=recipe.id) }}">
+                            <input type="submit" value="Remove" class="button button-remove"/>
+                        </form>
+                        <form method="GET" action="{{ url_for('recipes_edit_form', recipe_id=recipe.id) }}">
+                            <input type="submit" value="Edit" class="button button-edit"/>
+                        </form>
+                    {% endif %}
+
                     <form method="POST" action="{{ url_for('recipes_add_like', recipe_id=recipe.id) }}">
                         <input type="submit" value="Like!" class="button button-like"/>
                     </form>
                 {% endif %}
             </td>
-            
         </tr>
         {% endfor %}
     </table>
