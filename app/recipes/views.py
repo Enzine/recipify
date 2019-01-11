@@ -3,6 +3,7 @@ from flask import render_template, request, url_for, redirect
 from flask_login import login_required, current_user
 from app.recipes.models import Recipe
 from app.recipes.forms import RecipeForm
+from app.comments.forms import CommentForm
 import sys
 
 # print('This is error output', file=sys.stderr)
@@ -17,7 +18,7 @@ def recipes_index():
 # Shows one chosen recipe and its information.
 @app.route("/recipes/<recipe_id>/show", methods=["GET"])
 def recipes_show(recipe_id):
-    return render_template("recipes/show.html", recipe = Recipe.query.get(recipe_id))
+    return render_template("recipes/show.html", recipe = Recipe.query.get(recipe_id), form = CommentForm())
 
 # GET /recipes/new
 # Shows form to create a new recipe.

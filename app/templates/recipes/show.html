@@ -6,6 +6,45 @@
     <p>This recipe has {{ recipe.likes }} likes.</p>
     <p>This recipe has been completed {{ recipe.done }} times.</p>
     <br />
-    <b>Instructions:</b>
+    <b>Instructions</b>
     <p>{{ recipe.instructions }}</p>
+
+    <b>Comments</b><br />
+    <ul>
+        {% for comment in recipe.comments %}
+        <li>
+            <p>by <a href="{{ url_for('auth_show', account_id=current_user.id) }}">{{ comment.account.username }}</a></p>
+            <p>{{ comment.text }}</p>
+            {% if current_user.id == comment.account.id %}
+                <form method="POST" action="{{ url_for('comments_remove', comment_id=comment.id) }}">
+                    <input type="submit" value="Remove" class="button button-remove"/>
+                </form>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% if current_user %}
+        <form method="POST" action="{{ url_for('comments_create', recipe_id=recipe.id) }}">
+            <table>
+                <tr>
+                    <td>{{ form.text.label }}</td>
+                    <td>{{ form.text }}</td>
+                    <td>
+                        <ul>
+                            {% for error in form.text.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <input type="submit" class="button button-add" value="Send" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    {% endif %}
+
 {% endblock %}
