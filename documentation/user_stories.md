@@ -2,23 +2,23 @@
 
 ## When visiting
 
-* As a user I can see and scroll all the recipes listed.
+* As a user I can see and scroll all the recipes listed. [ x ]
 
 * As a user I can search recipes by name or tag.
 
-* As a user I can see information of a chosen recipe on a recipe's page.
+* As a user I can see information of a chosen recipe on a recipe's page. [ x ]
 
-* As a user I can access a random recipe.
+* As a user I can access a random recipe. [ x ]
 
 ## When logged
 
-* As a user I can add a new recipe.
+* As a user I can add a new recipe. [ x ]
 
 * As a user I can give my recipes tags.
 
-* As a user I can edit and delete any recipes I have written.
+* As a user I can edit and delete any recipes I have written. [ x ]
 
-* As a user I can like (and comment?) other users' recipes.
+* As a user I can like (and comment?) other users' recipes. [ x ]
 
 * As a user I can add a recipe to my favorites.
 
