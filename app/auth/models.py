@@ -7,6 +7,7 @@ class User(Base):
 
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
+    role = db.Column(db.String(80), nullable=False)
 
     recipes = db.relationship("Recipe", backref='account', lazy=True)
     comments = db.relationship('Comment', backref='account', lazy=True)
@@ -14,6 +15,7 @@ class User(Base):
     def __init__(self, username, password):
         self.username = username
         self.password = password
+        self.role = "USER"
   
     def get_id(self):
         return self.id

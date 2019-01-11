@@ -20,6 +20,26 @@ else:
 # Create db object
 db = SQLAlchemy(app)
 
+# Checks if user is authorized
+from functools import wraps
+
+def role_required(role="USER"):
+    def wrapper(fn):
+        @wraps(fn)
+        def decorated_view(*args, **kwargs):
+            if not current_user:
+                return login_manager.unauthorized()
+          
+            if not current_user.is_authenticated():
+                return login_manager.unauthorized()
+            
+            if role == "ADMIN" and current_user.role != "ADMIN":
+                return login_manager.unauthorized()
+            
+            return fn(*args, **kwargs)
+        return decorated_view
+    return wrapper
+
 from app import views
 from app.recipes import models, views
 from app.auth import models, views
