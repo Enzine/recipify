@@ -23,16 +23,6 @@ def recipes_form():
 def recipes_edit_form(recipe_id):
     return render_template("recipes/edit.html", recipe = Recipe.query.get(recipe_id), form = RecipeForm(obj=Recipe.query.get(recipe_id)))
 
-@app.route("/recipes/<recipe_id>/like/", methods=["POST"])
-@role_required(role="USER")
-def recipes_add_like(recipe_id):
-
-    r = Recipe.query.get(recipe_id)
-    r.likes += 1
-    db.session().commit()
-  
-    return redirect(url_for("recipes_index"))
-
 @app.route("/recipes/", methods=["POST"])
 @role_required(role="USER")
 def recipes_create():
@@ -84,3 +74,29 @@ def recipes_remove(recipe_id):
     db.session().commit()
 
     return redirect(url_for("recipes_index"))
+
+@app.route("/recipes/<recipe_id>/like/", methods=["POST"])
+@role_required(role="USER")
+def recipes_add_like(recipe_id):
+
+    r = Recipe.query.get(recipe_id)
+    r.likes += 1
+    db.session().commit()
+  
+    return redirect(url_for("recipes_index"))
+
+import random
+
+@app.route("/recipes/random/", methods=["GET"])
+def recipes_random():
+    recipes = Recipe.query.all()
+    if not recipes:
+        return render_template("index.html", most_liked_recipes=Recipe.find_recipes_with_most_likes())
+
+    total = len(recipes)
+    i = random.randint(0,total-1)
+
+    r = recipes[i]
+
+    return render_template("recipes/show.html", recipe = r, form = CommentForm())
+
