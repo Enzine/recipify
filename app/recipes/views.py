@@ -4,7 +4,6 @@ from flask_login import current_user
 from app.recipes.models import Recipe
 from app.recipes.forms import RecipeForm
 from app.comments.forms import CommentForm
-import sys
 
 @app.route("/recipes", methods=["GET"])
 def recipes_index():
