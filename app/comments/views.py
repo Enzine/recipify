@@ -5,8 +5,6 @@ from app.comments.models import Comment
 from app.comments.forms import CommentForm
 import sys
 
-# print('This is error output', file=sys.stderr)
-
 @app.route("/comments/<recipe_id>", methods=["POST"])
 @login_required
 def comments_create(recipe_id):
