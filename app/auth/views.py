@@ -28,7 +28,8 @@ def auth_register():
 
     form = LoginForm(request.form)
 
-    user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+    user = User.query.filter_by(username=form.username.data).first()
+
     if not user:
         user = User(form.username.data, form.password.data)
 
