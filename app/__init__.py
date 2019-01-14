@@ -46,6 +46,7 @@ from app import views
 from app.recipes import models, views
 from app.auth import models, views
 from app.comments import models, views
+from app.likes import models
 
 # Login
 from app.auth.models import User
