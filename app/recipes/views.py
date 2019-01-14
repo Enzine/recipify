@@ -99,7 +99,7 @@ import random
 def recipes_random():
     recipes = Recipe.query.all()
     if not recipes:
-        return render_template("index.html", most_liked_recipes=Recipe.find_recipes_with_most_likes())
+        return render_template("index.html")
 
     total = len(recipes)
     i = random.randint(0,total-1)

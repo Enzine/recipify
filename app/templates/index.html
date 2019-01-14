@@ -4,7 +4,7 @@
 <h2>Welcome to find recipies!</h2>
 <p>Most liked recipes are:</p>
 {% for recipe in most_liked_recipes %}
-    <a href="{{ url_for('recipes_show', recipe_id=recipe.id)}}">{{ recipe.name }}</a> with {{ recipe.likes }} likes<br>
+    <a href="{{ url_for('recipes_show', recipe_id=recipe.id)}}">{{ recipe["name"] }}</a> with {{ recipe["likes"] }} likes<br>
 {% endfor %}
 
 {% endblock %}
