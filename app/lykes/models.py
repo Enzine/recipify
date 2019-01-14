@@ -1,7 +1,7 @@
 from app import db
 from app.models import Base
 
-class Like(Base):
+class Lyke(Base):
 
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'), nullable=False)
 

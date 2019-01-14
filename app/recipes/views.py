@@ -1,7 +1,7 @@
 from app import app, db, role_required
 from flask import render_template, request, url_for, redirect
 from flask_login import current_user
-from app.likes.models import Like
+from app.lykes.models import Lyke
 from app.recipes.models import Recipe
 from app.recipes.forms import RecipeForm
 from app.comments.forms import CommentForm
@@ -79,13 +79,13 @@ def recipes_remove(recipe_id):
 @app.route("/recipes/<recipe_id>/like/", methods=["POST"])
 @role_required(role="USER")
 def recipes_add_like(recipe_id):
-    query = Like.query.filter(Like.recipe_id == recipe_id).\
-            filter(Like.account_id == current_user.id)
+    query = Lyke.query.filter(Lyke.recipe_id == recipe_id).\
+            filter(Lyke.account_id == current_user.id)
     
     liked = [value for value in query]
 
     if not liked:
-        l = Like(recipe_id = recipe_id, account_id = current_user.id)
+        l = Lyke(recipe_id = recipe_id, account_id = current_user.id)
         r = Recipe.query.get(recipe_id)
         r.like_count += 1
         db.session().add(l)

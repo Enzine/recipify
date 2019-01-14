@@ -12,7 +12,7 @@ class Recipe(Base):
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
 
     comments = db.relationship('Comment', backref='recipe', lazy=True)
-    likes = db.relationship('Like', backref='recipe', lazy=True)
+    likes = db.relationship('Lyke', backref='recipe', lazy=True)
 
     def __init__(self, name, preparation_time, instructions):
         self.name = name
@@ -23,16 +23,10 @@ class Recipe(Base):
     @staticmethod
     def find_recipes_with_most_likes():
 
-        stmt = text("SELECT Recipe.id, Recipe.name, Count(Like.id), Like.recipe_id FROM Recipe"
-                    " JOIN Like ON Recipe.id = Like.recipe_id"
-                    " GROUP BY Recipe.id"
-                    " ORDER BY COUNT(Like.id)" 
-                    " DESC;")
+        stmt = text("SELECT Recipe.id, Recipe.name, COUNT(Lyke.id), Lyke.recipe_id FROM Recipe JOIN Lyke ON Recipe.id = Lyke.recipe_id GROUP BY Recipe.id, Lyke.recipe_id ORDER BY COUNT(Lyke.id) DESC;")
 
         res = db.engine.execute(stmt)
 
-        response = []
-        for row in res:
-            response.append({"id":row[0], "name":row[1], "likes":row[2]})
+        response = [{"id":row[0], "name":row[1], "likes":row[2]} for row in res]
 
         return response[:5]
