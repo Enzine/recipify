@@ -79,17 +79,20 @@ def recipes_remove(recipe_id):
 @app.route("/recipes/<recipe_id>/like/", methods=["POST"])
 @role_required(role="USER")
 def recipes_add_like(recipe_id):
-    query = Lyke.query.filter(Lyke.recipe_id == recipe_id).\
-            filter(Lyke.account_id == current_user.id)
+    r = Recipe.query.get(recipe_id)
     
-    liked = [value for value in query]
+    if current_user.id != r.account_id:
+        query = Lyke.query.filter(Lyke.recipe_id == recipe_id).\
+                filter(Lyke.account_id == current_user.id)
+        
+        liked = [value for value in query]
 
-    if not liked:
-        l = Lyke(recipe_id = recipe_id, account_id = current_user.id)
-        r = Recipe.query.get(recipe_id)
-        r.like_count += 1
-        db.session().add(l)
-        db.session().commit()
+        if not liked:
+            l = Lyke(recipe_id = recipe_id, account_id = current_user.id)
+            
+            r.like_count += 1
+            db.session().add(l)
+            db.session().commit()
   
     return redirect(url_for("recipes_index"))
 

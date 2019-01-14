@@ -26,11 +26,11 @@
                         <form method="GET" action="{{ url_for('recipes_edit_form', recipe_id=recipe.id) }}">
                             <input type="submit" value="Edit" class="button button-edit"/>
                         </form>
+                    {% else %}
+                        <form method="POST" action="{{ url_for('recipes_add_like', recipe_id=recipe.id) }}">
+                            <input type="submit" value="Like!" class="button button-like"/>
+                        </form>
                     {% endif %}
-
-                    <form method="POST" action="{{ url_for('recipes_add_like', recipe_id=recipe.id) }}">
-                        <input type="submit" value="Like!" class="button button-like"/>
-                    </form>
                 {% endif %}
             </td>
         </tr>
