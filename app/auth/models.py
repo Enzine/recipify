@@ -9,6 +9,7 @@ class User(Base):
     password = db.Column(db.String(144), nullable=False)
     role = db.Column(db.String(80), nullable=False)
 
+    likes = db.relationship("Like", backref='like', lazy=True)
     recipes = db.relationship("Recipe", backref='account', lazy=True)
     comments = db.relationship('Comment', backref='account', lazy=True)
 
