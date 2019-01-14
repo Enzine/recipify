@@ -18,9 +18,9 @@
 
 * As a user I can edit and delete any recipes I have written. [ x ]
 
-* As a user I can like (and comment?) other users' recipes. [ x ]
+* As a user I can like other users' recipes. [ x ]
 
-* As a user I can add a recipe to my favorites.
+* As a user I can comment on recipes. [ x ]
 
 * As a user I can see my profile page and change my personal information.
 
