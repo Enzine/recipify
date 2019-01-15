@@ -4,100 +4,65 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Recipify</title>
-    <style>
-      body {
-        padding-left: 5px;
-      }
-      table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-      }
-      td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-      }
-      tr:nth-child(even) {
-        background-color: #dddddd;
-      }
-      .button {
-        color: white;
-        padding: 10px;
-        text-align: center;
-        display: inline-block;
-        font-size: 16px;
-        cursor: pointer;
-      }
-      .button-like {
-        background-color: rgb(37, 106, 218);
-      }
-      .button-edit {
-        background-color: rgb(219, 126, 49);
-      }
-      .button-add {
-        background-color: rgb(49, 161, 92);
-        margin: 5px;
-        margin-left: 0px;
-      }
-      .button-remove {
-        background-color: #A93540;
-      }
-      form {
-          display: inline;
-      }
-      .a-navi:link, .a-navi:visited {
-        background-color: rgb(39, 41, 41);
-        color: white;
-        padding: 14px 25px;
-        margin-top: 3px;
-        margin-bottom: 15px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-      }
-      .grid-container {
-        display: grid;
-        grid-template-columns: auto auto auto auto auto auto;
-      }
-      .grid-item {
-        background-color: rgba(255, 255, 255, 0.8);
-        font-size: 20px;
-        text-align: center;
-      }
-      .a-navi:hover, .a-navi:active {
-        background-color: rgb(10, 92, 88);
-      }
-    </style>
   </head>
 
   <body>
-    {% if current_user.is_authenticated %}
-      <p>Logged in as <a href="{{ url_for('auth_show', account_id=current_user.id) }}">{{ current_user.username }}.</a> <a href="{{ url_for('auth_logout') }}">Log out</a></p>
-    {% else %}
-    <a class="a-navi" href="{{ url_for('auth_register') }}">Register</a>
-    <a class="a-navi" href="{{ url_for('auth_login') }}">Log in</a>
-    {% endif %}
-    <a class="a-navi" href="{{ url_for('index') }}">Home</a>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand">Recipify</a>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{{ url_for('recipes_index') }}">Recipes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{{ url_for('recipes_random') }}">Random Recipe</a>
+          </li>
+          {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('recipes_form') }}">Add a recipe</a>
+            </li>
+          {% endif %}
+        </ul>
 
-    {% if current_user.is_authenticated %}
-      <a class="a-navi" href="{{ url_for('recipes_form') }}">Add a recipe</a>
-    {% endif %}
+        <ul class="navbar-nav ml-auto">
+          {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <p class="nav-link active">Logged in as<p>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('auth_show', account_id=current_user.id) }}">
+                {{ current_user.username }}
+              </a> 
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('auth_logout') }}">Log out</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('auth_register') }}">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('auth_login') }}">Log in</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
 
-    <a class="a-navi" href="{{ url_for('recipes_index') }}">List recipes</a>
-    <a class="a-navi" href="{{ url_for('recipes_random') }}">Random recipe</a>
-
-    {% block body %}
+    {%  block body %}
 
     {% endblock %}
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
   </body>
 </html>

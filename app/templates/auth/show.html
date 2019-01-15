@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <h2>{{ account.username }}</h2>
-    {% if account.id == current_user.id %}
-        Your role is {{ account.role }}.
-    {% endif %}
+<h1>Profile page</h1>
+<h2 class="center-align">{{ account.username }}</h2>
+{% if account.id == current_user.id %}
+  <p class="center-align">Your role is {{ account.role }}.</p>
+{% endif %}
 {% endblock %}
