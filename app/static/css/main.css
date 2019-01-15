@@ -1,0 +1,110 @@
+body {
+  margin: 0;
+  padding: 5px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #444;
+}
+h1 {
+  padding-top: 25px;
+  text-align: center;
+}
+nav {
+  background: #b9dada;
+}
+table { 
+  border-collapse: collapse; 
+  background: white;
+  max-width: 800px;
+  width: 100%;
+  margin: 15px auto;
+  position: relative;
+  border: 1px solid rgb(146, 146, 146);
+}  
+td,th { 
+  padding-left: 8px;
+  padding: 15px;
+  border: 1px solid rgb(146, 146, 146);
+}
+th {
+  background-color: #cfebeb;
+}
+ol {
+  list-style-type: upper-roman;
+  list-style-position: inside;
+}
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: #94d3c5;
+}
+a:visited {
+  color: rgb(120, 122, 120);
+}
+a:hover {
+  color: rgb(38, 174, 192);
+}
+
+li.padding {
+  padding: 10px;
+}
+img.welcome {
+  width: 60%;
+  height: auto;
+  border-radius: 25px;
+  opacity: 0.5;
+}
+
+.welcome-text {
+  border: 1px solid black;
+  max-width: 600px;
+  width: 100%;
+  margin: 10px;
+}
+.comment-text {
+  border: 1px solid black;
+  max-width: 600px;
+  width: 100%;
+  margin: 10px;
+}
+.center-align {
+  text-align: center;
+  padding: 10px;
+}
+.button {
+  border: 1px solid rgb(146, 146, 146);
+  width: 160px;
+  padding: 10px 20px;
+  margin: 2px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.button-add {
+  background-color: rgb(149, 245, 213);
+}
+.button-add:hover {
+  background-color: rgb(124, 231, 195);
+}
+.button-remove {
+  background-color: rgb(245, 149, 149);
+}
+.button-remove:hover {
+  background-color: rgb(236, 124, 124);
+}
+.button-like {
+  background-color: #9ae6f3;
+}
+.button-like:hover {
+  background-color: #82dbeb;
+}
+.button-edit {
+  background-color: rgb(149, 186, 245);
+}
+.button-edit:hover {
+  background-color: rgb(129, 173, 243);
+}

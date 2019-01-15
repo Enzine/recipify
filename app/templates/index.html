@@ -1,10 +1,24 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<h2>Welcome to find recipies!</h2>
-<p>Most liked recipes are:</p>
-{% for recipe in most_liked_recipes %}
-    <a href="{{ url_for('recipes_show', recipe_id=recipe.id)}}">{{ recipe["name"] }}</a> with {{ recipe["likes"] }} likes<br>
-{% endfor %}
+
+<div class="container-fluid center-align">
+  <h1>Welcome to Recipify!</h1>
+  <div class="container-fluid welcome-text center-align">
+    This is a recipe wonderland where you can browse, like and comment others' recipes, add your own recipes and search for a random recipe.
+  </div>
+  {% if most_liked_recipes %}
+    <h3>Most liked recipes are:</h3>
+    <ol>
+      {% for recipe in most_liked_recipes %}
+        <li class="padding">
+          <a href="{{ url_for('recipes_show', recipe_id=recipe.id)}}">{{ recipe["name"] }}</a>
+          with {{ recipe["likes"] }} likes<br />
+        </li>
+      {% endfor %}
+    </ol>
+  {% endif %}
+  <img class="welcome" src="../static/images/food-3270461_640.jpg" />
+</div>
 
 {% endblock %}

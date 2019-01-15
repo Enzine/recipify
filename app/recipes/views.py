@@ -102,7 +102,7 @@ import random
 def recipes_random():
     recipes = Recipe.query.all()
     if not recipes:
-        return render_template("index.html")
+        return redirect(url_for("index"))
 
     total = len(recipes)
     i = random.randint(0,total-1)
