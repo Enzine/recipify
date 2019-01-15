@@ -2,9 +2,10 @@
 
 {% block body %}
     <h2>{{ recipe.name }}</h2>
-    This recipe was added by <a href="{{ url_for('auth_show', account_id=recipe.account.id) }}">{{ recipe.account.username }}</a>
+    This recipe was added by <a href="{{ url_for('auth_show', account_id=recipe.account.id) }}">{{ recipe.account.username }}</a> on <i>{{ recipe.date_created }}</i>
     <p>This recipe has {{ recipe.like_count }} likes.</p>
     <br />
+    <p>Preparation time: {{ recipe.preparation_time }} minutes</p>
     <b>Instructions</b>
     <p>{{ recipe.instructions }}</p>
 
