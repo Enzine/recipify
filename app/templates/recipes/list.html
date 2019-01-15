@@ -4,7 +4,7 @@
 
 <h1>Recipes</h1>
 {% if not recipes %}
-  There are no recipes yet. <a href="{{ url_for('auth_login') }}">Sign in</a> and add one.
+  <p class="center-align">There are no recipes yet. <a href="{{ url_for('auth_login') }}">Sign in</a> and add one.
 {% else %}
   <div style="overflow-x:auto;">
     <table>
