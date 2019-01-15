@@ -3,42 +3,46 @@
 {% block body %}
 
 <h1>Recipes</h1>
-<div style="overflow-x:auto;">
-  <table>
-    <tr>
-      <th>Recipe</th>
-      <th>Likes</th>
-      <th>Preparation time (mins)</th>
-      <th>Instructions</th>
-      <th>Actions</th>
-    </tr>
-    {% for recipe in recipes %}
+{% if not recipes %}
+  There are no recipes yet. <a href="{{ url_for('auth_login') }}">Sign in</a> and add one.
+{% else %}
+  <div style="overflow-x:auto;">
+    <table>
       <tr>
-        <td><a href="{{ url_for('recipes_show', recipe_id=recipe.id) }}">{{ recipe.name }}</a></td>
-        <td>{{ recipe.like_count }}</td>
-        <td>{{ recipe.preparation_time }}</td>
-        <td>{{ recipe.instructions }}</td>
-
-        <td>
-          {% if current_user.is_authenticated %}
-
-            {% if current_user.id == recipe.account.id %}
-              <form method="POST" action="{{ url_for('recipes_remove', recipe_id=recipe.id) }}">
-                <input type="submit" value="Remove" class="button button-remove"/>
-              </form>
-              <form method="GET" action="{{ url_for('recipes_edit_form', recipe_id=recipe.id) }}">
-                <input type="submit" value="Edit" class="button button-edit"/>
-              </form>
-            {% else %}
-              <form method="POST" action="{{ url_for('recipes_add_like', recipe_id=recipe.id) }}">
-                <input type="submit" value="Like!" class="button button-like"/>
-              </form>
-            {% endif %}
-          {% endif %}
-        </td>
+        <th>Recipe</th>
+        <th>Likes</th>
+        <th>Preparation time (mins)</th>
+        <th>Instructions</th>
+        <th>Actions</th>
       </tr>
-    {% endfor %}
-  </table>
-</div>
+      {% for recipe in recipes %}
+        <tr>
+          <td><a href="{{ url_for('recipes_show', recipe_id=recipe.id) }}">{{ recipe.name }}</a></td>
+          <td>{{ recipe.like_count }}</td>
+          <td>{{ recipe.preparation_time }}</td>
+          <td>{{ recipe.instructions }}</td>
+
+          <td>
+            {% if current_user.is_authenticated %}
+
+              {% if current_user.id == recipe.account.id %}
+                <form method="POST" action="{{ url_for('recipes_remove', recipe_id=recipe.id) }}">
+                  <input type="submit" value="Remove" class="button button-remove"/>
+                </form>
+                <form method="GET" action="{{ url_for('recipes_edit_form', recipe_id=recipe.id) }}">
+                  <input type="submit" value="Edit" class="button button-edit"/>
+                </form>
+              {% else %}
+                <form method="POST" action="{{ url_for('recipes_add_like', recipe_id=recipe.id) }}">
+                  <input type="submit" value="Like!" class="button button-like"/>
+                </form>
+              {% endif %}
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endif %}
 
 {% endblock %}
