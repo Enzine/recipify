@@ -8,7 +8,7 @@ from app.comments.forms import CommentForm
 
 @app.route("/recipes", methods=["GET"])
 def recipes_index():
-    return render_template("recipes/list.html", recipes = Recipe.query.all())
+    return render_template("recipes/list.html", recipes = Recipe.query.order_by(Recipe.like_count.desc()))
 
 @app.route("/recipes/<recipe_id>/show", methods=["GET"])
 def recipes_show(recipe_id):
