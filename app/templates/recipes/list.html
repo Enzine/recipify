@@ -4,7 +4,12 @@
 
 <h1>Recipes</h1>
 {% if not recipes %}
-  <p class="center-align">There are no recipes yet. <a href="{{ url_for('auth_login') }}">Sign in</a> and add one.
+  <p class="center-align">There are no recipes yet.
+  {% if not current_user.id %}
+    <a href="{{ url_for('auth_login') }}">Sign in</a> to add recipes. 
+  {% else %}
+    <a href="{{ url_for('recipes_form') }}">Add one</a>.
+  {% endif %}
 {% else %}
   <div style="overflow-x:auto;">
     <table>
@@ -30,14 +35,15 @@
           <td>
             {% if current_user.is_authenticated %}
 
-              {% if current_user.id == recipe.account.id or current_user.role == "ADMIN" %}
+              {% if current_user.id == recipe.account_id or current_user.role == "ADMIN" %}
                 <form method="POST" action="{{ url_for('recipes_remove', recipe_id=recipe.id) }}">
                   <input type="submit" value="Remove" class="button button-remove"/>
                 </form>
                 <form method="GET" action="{{ url_for('recipes_edit_form', recipe_id=recipe.id) }}">
                   <input type="submit" value="Edit" class="button button-edit"/>
                 </form>
-              {% else %}
+              {% endif %}
+              {% if current_user.id != recipe.account_id %}
                 <form method="POST" action="{{ url_for('recipes_add_like', recipe_id=recipe.id) }}">
                   <input type="submit" value="Like!" class="button button-like"/>
                 </form>
