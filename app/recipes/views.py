@@ -1,7 +1,8 @@
-from app import app, db, role_required
+from app import app, db
 from flask import render_template, request, url_for, redirect
-from flask_login import current_user
+from flask_login import current_user, login_required
 from app.lykes.models import Lyke
+from app.comments.models import Comment
 from app.recipes.models import Recipe
 from app.recipes.forms import RecipeForm
 from app.comments.forms import CommentForm
@@ -15,17 +16,17 @@ def recipes_show(recipe_id):
     return render_template("recipes/show.html", recipe = Recipe.query.get(recipe_id), form = CommentForm())
 
 @app.route("/recipes/new/")
-@role_required(role="USER")
+@login_required
 def recipes_form():
     return render_template("recipes/new.html", form = RecipeForm())
 
 @app.route("/recipes/<recipe_id>/edit/")
-@role_required(role="USER")
+@login_required
 def recipes_edit_form(recipe_id):
     return render_template("recipes/edit.html", recipe = Recipe.query.get(recipe_id), form = RecipeForm(obj=Recipe.query.get(recipe_id)))
 
 @app.route("/recipes/", methods=["POST"])
-@role_required(role="USER")
+@login_required
 def recipes_create():
     form = RecipeForm(request.form)
 
@@ -46,7 +47,7 @@ def recipes_create():
     return redirect(url_for("recipes_index"))
 
 @app.route("/recipes/<recipe_id>/edit/", methods=["POST"])
-@role_required(role="USER")
+@login_required
 def recipes_edit(recipe_id):
     form = RecipeForm(request.form)
 
@@ -67,17 +68,21 @@ def recipes_edit(recipe_id):
     return redirect(url_for("recipes_index"))
 
 @app.route("/recipes/<recipe_id>/delete/", methods=["POST"])
-@role_required(role="USER")
+@login_required
 def recipes_remove(recipe_id):
     r = Recipe.query.get(recipe_id)
+    lykes = list(Lyke.query.filter(Lyke.recipe_id == recipe_id))
+    comments = list(Comment.query.filter(Comment.recipe_id == recipe_id))
     
+    [db.session().delete(comment) for comment in comments]
+    [db.session().delete(lyke) for lyke in lykes]
     db.session().delete(r)
     db.session().commit()
 
     return redirect(url_for("recipes_index"))
 
 @app.route("/recipes/<recipe_id>/like/", methods=["POST"])
-@role_required(role="USER")
+@login_required
 def recipes_add_like(recipe_id):
     r = Recipe.query.get(recipe_id)
     

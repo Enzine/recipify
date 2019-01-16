@@ -30,7 +30,7 @@
           <td>
             {% if current_user.is_authenticated %}
 
-              {% if current_user.id == recipe.account.id %}
+              {% if current_user.id == recipe.account.id or current_user.role == "ADMIN" %}
                 <form method="POST" action="{{ url_for('recipes_remove', recipe_id=recipe.id) }}">
                   <input type="submit" value="Remove" class="button button-remove"/>
                 </form>
