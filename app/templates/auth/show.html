@@ -2,8 +2,11 @@
 
 {% block body %}
 
-<h1>Profile page</h1>
-<h2 class="center-align">{{ account.username }}</h2>
+<h1>Profile page of</h1>
+<div class="center-align">
+  <h2>{{ account.username }}</h2>
+  joined on {{ account.date_created }}
+</div>
 
 {% if account.id == current_user.id %}
   <p class="center-align">Your role is {{ account.role }}.</p>
