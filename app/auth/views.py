@@ -13,13 +13,18 @@ def auth_login():
 
     form = LoginForm(request.form)
 
-    user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+    user = User.query.filter_by(username=form.username.data).first()
     if not user:
         return render_template("auth/login.html", form = form,
-                               error = "No such username or password")
+                            error = "No such username")
 
-    login_user(user)
-    return redirect(url_for("index"))
+    if user.is_correct_password(form.password.data):
+        login_user(user)
+
+        return redirect(url_for("index"))
+    else:
+        return render_template("auth/login.html", form = form,
+                            error = "Given password doesn't match this user")
 
 @app.route("/auth/register", methods = ["GET", "POST"])
 def auth_register():
@@ -31,7 +36,16 @@ def auth_register():
     user = User.query.filter_by(username=form.username.data).first()
 
     if not user:
-        user = User(form.username.data, form.password.data)
+        if form.password.data != form.password_again.data:
+            return render_template("auth/register.html", form = form,
+                            error = "Password fields need to match.")
+                               
+        if not form.validate_on_submit():
+            return render_template("auth/register.html", form = LoginForm(),
+                            error = "Username must be at least 3 characters. Password at least 8 characters long.")
+        
+        user = User(form.username.data)
+        user.password = form.password.data
 
         db.session().add(user)
         db.session().commit()
@@ -39,7 +53,7 @@ def auth_register():
         login_user(user)
     else: 
         return render_template("auth/register.html", form = form,
-                               error = "Username is already taken.")
+                            error = "Username is already taken.")
     
     return redirect(url_for("index"))   
 

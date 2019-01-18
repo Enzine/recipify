@@ -108,3 +108,9 @@ img.welcome {
 .button-edit:hover {
   background-color: rgb(129, 173, 243);
 }
+
+.error {
+  color: red;
+  font-style: italic;
+  font-weight: bold;
+}

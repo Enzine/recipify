@@ -1,6 +1,10 @@
 # coding=utf-8
 from flask import Flask
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
+
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 
 from flask_sqlalchemy import SQLAlchemy
 import os

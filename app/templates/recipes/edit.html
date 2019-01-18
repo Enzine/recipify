@@ -1,47 +1,34 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <form method="POST" action="{{ url_for('recipes_edit', recipe_id=recipe.id) }}">
-        <table>
-            <tr>
-                <td>{{ form.name.label }}</td>
-                <td>{{ form.name }}</td>
-                <td>
-                    <ul>
-                        {% for error in form.name.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>{{ form.preparation_time.label }}</td>
-                <td>{{ form.preparation_time }}</td>
-                <td>
-                    <ul>
-                        {% for error in form.preparation_time.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>{{ form.instructions.label }}</td>
-                <td>{{ form.instructions }}</td>
-                <td>
-                    <ul>
-                        {% for error in form.instructions.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <input type="submit" class="button button-edit" value="Edit" />
-                </td>
-            </tr>
-        </table>
-    </form>
+<div class="center-align error">
+    {% for error in form.preparation_time.errors %}
+      Preparation time: {{ error }}<br />
+    {% endfor %}
+</div>
+
+<h1>Edit recipe</h1>
+
+<form method="POST" action="{{ url_for('recipes_edit', recipe_id=recipe.id) }}">
+  <table>
+    <tr>
+      <td>{{ form.name.label }}</td>
+      <td>{{ form.name }}</td>
+    </tr>
+    <tr>
+      <td>{{ form.preparation_time.label }}</td>
+      <td>{{ form.preparation_time }}</td>
+    </tr>
+    <tr>
+      <td>{{ form.instructions.label }}</td>
+      <td>{{ form.instructions }}</td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="submit" class="button button-edit" value="Edit" />
+      </td>
+    </tr>
+  </table>
+</form>
 {% endblock %}
 

@@ -1,28 +1,38 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
+<div class="center-align error">{{ error }}</div>
+<h1>Create a new user</h1>
 <form method="POST" action="{{ url_for('auth_register') }}">
   <table>
     <tr>
       <td>
-	    {{ form.username.label }}
+	      {{ form.username.label }}
       </td>
       <td>
-	    {{ form.username }}
+	      {{ form.username }}
+      </td>
+    </td>
+    </tr>
+    <tr>
+      <td>
+	      {{ form.password.label }}
+      </td>
+      <td>
+	      {{ form.password }}
       </td>
     </tr>
     <tr>
       <td>
-	    {{ form.password.label }}
+	      Password again
       </td>
       <td>
-	    {{ form.password }}
+	      {{ form.password_again }}
       </td>
     </tr>
     <tr>
       <td colspan="2">
-	    <input type="submit" class="button button-like" value="Register"/>
+	      <input type="submit" class="button button-like" value="Register"/>
       </td>
     </tr>
 </form>

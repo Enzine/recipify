@@ -1,23 +1,24 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
+<div class="center-align error">{{ error }}</div>
+<h1>Login to your againg</h1>
 <form method="POST" action="{{ url_for('auth_login') }}">
   <table>
     <tr>
       <td>
-	{{ form.username.label }}
+	      {{ form.username.label }}
       </td>
       <td>
-	{{ form.username }}
+	      {{ form.username }}
       </td>
     </tr>
     <tr>
       <td>
-	{{ form.password.label }}
+	      {{ form.password.label }}
       </td>
       <td>
-	{{ form.password }}
+	      {{ form.password }}
       </td>
     </tr>
     <tr>
