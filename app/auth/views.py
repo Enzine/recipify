@@ -1,10 +1,12 @@
 # coding=utf-8
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required, current_user
 
 from app import app, db
 from app.auth.models import User
 from app.auth.forms import LoginForm
+
+import logging
 
 
 @app.route("/auth/login", methods = ["GET", "POST"])
@@ -45,7 +47,7 @@ def auth_register():
         if form.password.data != form.password_again.data:
             return render_template("auth/register.html", form = form,
                             error = "Password fields need to match.")
-                               
+
         user = User(form.username.data)
         user.password = form.password.data
 
@@ -59,6 +61,28 @@ def auth_register():
     
     return redirect(url_for("index"))   
 
+@app.route("/auth/<account_id>/change", methods = ["POST"])
+@login_required
+def auth_change_password(account_id):
+    form = LoginForm(request.form)
+    
+    if form.password.data == form.password_again.data:
+        if form.password == "":
+            return render_template("auth/show.html", account = User.query.get(account_id), form = form,
+                            error = "Password cannot be empty.")
+
+        user = User.query.get(account_id)
+        user.password = form.password.data
+
+        db.session().add(user)
+        db.session().commit()
+    
+    else:
+        return render_template("auth/show.html", account = User.query.get(account_id), form = form,
+                            error = "Password fields need to match.")
+
+    return render_template("auth/show.html", account = User.query.get(account_id), form = form)
+
 
 @app.route("/auth/logout")
 def auth_logout():
@@ -68,4 +92,4 @@ def auth_logout():
 
 @app.route("/auth/<account_id>/show", methods=["GET"])
 def auth_show(account_id):
-    return render_template("auth/show.html", account = User.query.get(account_id))
+    return render_template("auth/show.html", account = User.query.get(account_id), form = LoginForm(), recipes = sorted(User.query.get(account_id).recipes, key=lambda x: x.like_count, reverse=True))

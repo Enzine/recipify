@@ -1,9 +1,49 @@
 {% extends "layout.html" %}
 
 {% block body %}
+
 <h1>Profile page</h1>
 <h2 class="center-align">{{ account.username }}</h2>
+
 {% if account.id == current_user.id %}
   <p class="center-align">Your role is {{ account.role }}.</p>
 {% endif %}
+
+<h3 class="center-align">Posted recipes</h3>
+{% for recipe in recipes %}
+  <li class="center-align">
+    <a href="{{ url_for('recipes_show', recipe_id=recipe.id) }}">{{ recipe.name }}</a> ({{ recipe.like_count }} likes)
+    {% if current_user.is_authenticated and (current_user.id == recipe.account.id) %}
+      <form method="POST" action="{{ url_for('recipes_remove', recipe_id=recipe.id) }}">
+        <input type="submit" value="Remove" class="button button-remove button-small"/>
+      </form>
+      <form method="GET" action="{{ url_for('recipes_edit_form', recipe_id=recipe.id) }}">
+        <input type="submit" value="Edit" class="button button-edit button-small"/>
+      </form>
+  {% endif %}
+  </li>
+{% endfor %}
+
+{% if current_user.id == account.id %}
+<div class="center-align error">{{ error }}</div>
+<h3 class="center-align">Change password</h3>
+
+    <form method="POST" action="{{ url_for('auth_change_password', account_id=account.id) }}">
+      <table>
+        <tr>
+          <td>{{ form.password.label }}</td>
+          <td>{{ form.password }}</td>
+        </tr>
+        <tr>
+            <td>Password again</td>
+            <td>{{ form.password_again }}</td>
+          </tr>
+        <tr>
+          <td colspan="2">
+            <input type="submit" class="button button-add" value="Submit" />
+          </td>
+        </tr>
+      </table>
+    </form>
+  {% endif %}
 {% endblock %}

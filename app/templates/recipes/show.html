@@ -5,12 +5,13 @@
 <div class="container-fluid center-align">
   <h1>{{ recipe.name }}</h2>
   This recipe was added by <a href="{{ url_for('auth_show', account_id=recipe.account.id) }}">{{ recipe.account.username }}</a> on <i>{{ recipe.date_created }}</i>
-  <p>This recipe has {{ recipe.like_count }} likes.</p>
+  <p>This recipe has {{ recipe.like_count }} likes.
   {% if current_user.is_authenticated and (current_user.id != recipe.account.id) %}
     <form method="POST" action="{{ url_for('recipes_add_like', recipe_id=recipe.id) }}">
-      <input type="submit" value="Like!" class="button button-like"/>
+      <input type="submit" value="Like!" class="button button-like button-small"/>
     </form>
   {% endif %}
+  </p>
   <p>Preparation time: {{ recipe.preparation_time }} minutes</p>
   <b>Instructions</b>
   <p>{{ recipe.instructions }}</p>
@@ -18,7 +19,7 @@
   <b>Comments</b><br />
     {% for comment in recipe.comments %}
     <div class="container-fluid center-align comment-text">
-      <p>by <a href="{{ url_for('auth_show', account_id=current_user.id) }}">
+      <p>by <a href="{{ url_for('auth_show', account_id=recipe.account_id) }}">
         {{ comment.account.username }}
       </a></p>
 
@@ -41,7 +42,7 @@
           <td>{{ form.text }}</td>
         </tr>
         <tr>
-          <td colspan="3">
+          <td colspan="2">
             <input type="submit" class="button button-add" value="Send" />
           </td>
         </tr>

@@ -84,6 +84,11 @@ img.welcome {
   border-radius: 10px;
   cursor: pointer;
 }
+.button-small {
+  width: 100px;
+  padding: 0;
+  font-size: 12px;
+}
 .button-add {
   background-color: rgb(149, 245, 213);
 }
