@@ -12,6 +12,7 @@ __Below raw database chart__
 ## Instructions
 
 Test username: testi
+
 Test password: testitesti
 
 1. On index you can see top 5 liked recipes (only if any recipes are liked).
