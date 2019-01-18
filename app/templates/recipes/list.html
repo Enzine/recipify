@@ -24,7 +24,11 @@
         <tr>
           <td><a href="{{ url_for('recipes_show', recipe_id=recipe.id) }}">{{ recipe.name }}</a></td>
           <td>{{ recipe.like_count }}</td>
-          <td>{{ recipe.preparation_time }}</td>
+          <td>
+            {% if recipe.preparation_time != None %}
+              {{ recipe.preparation_time }}
+            {% endif %}
+          </td>
           <td>
             {{ recipe.instructions[0:50] }}
             {% if recipe.instructions | length > 51 %}

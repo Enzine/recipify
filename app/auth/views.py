@@ -6,6 +6,7 @@ from app import app, db
 from app.auth.models import User
 from app.auth.forms import LoginForm
 
+
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
     if request.method == "GET":
@@ -26,6 +27,7 @@ def auth_login():
         return render_template("auth/login.html", form = form,
                             error = "Given password doesn't match this user")
 
+
 @app.route("/auth/register", methods = ["GET", "POST"])
 def auth_register():
     if request.method == "GET":
@@ -36,14 +38,14 @@ def auth_register():
     user = User.query.filter_by(username=form.username.data).first()
 
     if not user:
+        if not form.validate_on_submit():
+            return render_template("auth/register.html", form = LoginForm(),
+                            error = "Username must be at least 3 characters. Password at least 8 characters long.")
+
         if form.password.data != form.password_again.data:
             return render_template("auth/register.html", form = form,
                             error = "Password fields need to match.")
                                
-        if not form.validate_on_submit():
-            return render_template("auth/register.html", form = LoginForm(),
-                            error = "Username must be at least 3 characters. Password at least 8 characters long.")
-        
         user = User(form.username.data)
         user.password = form.password.data
 
@@ -57,10 +59,12 @@ def auth_register():
     
     return redirect(url_for("index"))   
 
+
 @app.route("/auth/logout")
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))    
+
 
 @app.route("/auth/<account_id>/show", methods=["GET"])
 def auth_show(account_id):
